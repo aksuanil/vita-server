@@ -1,6 +1,6 @@
 const dbConfig = {
-    HOST: "localhost",
-    PORT: 27017,
-    DB: "bezkoder_db"
+    dbUsername: "aksuanil25",
+    dbPassword: "aksuanil25",
+    dbName: "vitaDb"
 };
 export { dbConfig };

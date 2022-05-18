@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const User = mongoose.model(
+  //collection name
   "User",
   new mongoose.Schema({
     name: String,

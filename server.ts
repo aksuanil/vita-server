@@ -1,11 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
-
-const app = express();
-
+import { dbConfig } from './app/config/db.config';
+import {db} from './app/models';
 import user from './app/routes/user.routes';
 import auth from './app/routes/auth.routes';
+
+const app = express();
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -28,10 +29,9 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-
 // simple route
 app.get("/", (req: any, res: any) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to Vita API." });
 });
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -39,10 +39,8 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-import {db} from './app/models';
-// const Role = db.role;
 db.mongoose
-  .connect(`mongodb+srv://aksuanil25:aksuanil25@cluster0.qcf7o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
+  .connect(`mongodb+srv://${dbConfig.dbUsername}:${dbConfig.dbPassword}@cluster0.qcf7o.mongodb.net/${dbConfig.dbName}?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
