@@ -5,18 +5,24 @@ import bodyParser from 'body-parser';
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const authRouter = express.Router();
+import cors from 'cors';
+//TODO :: Calling cors both in here and server?
+authRouter.use(cors({
+    origin: '*'
+  }));
 
 authRouter.use(function (req: any, res: any, next: any) {
     res.header(
         "Access-Control-Allow-Headers",
-        "Origin, Content-Type, Accept"
+        "Origin, Content-Type, Accept",
+        "Access-Control-Allow-Origin"
     );
     next();
 });
 authRouter.post(
     "/api/auth/signup", jsonParser,
     [
-        verifySignUp.checkDuplicateEmail,
+        verifySignUp.verifyInputs,
     ],
     signup
 );

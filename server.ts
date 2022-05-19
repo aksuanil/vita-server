@@ -2,15 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
 import { dbConfig } from './app/config/db.config';
-import {db} from './app/models';
+import { db } from './app/models';
 import user from './app/routes/user.routes';
 import auth from './app/routes/auth.routes';
 
 const app = express();
-
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
 
 app.use(
   cookieSession({
@@ -22,7 +18,9 @@ app.use(
 
 app.use('/', auth)
 app.use('/', user)
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: '*'
+}));
 
 // parse requests of content-type - application/json
 app.use(express.json());

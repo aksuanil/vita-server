@@ -6,9 +6,6 @@ import { db } from './app/models';
 import user from './app/routes/user.routes';
 import auth from './app/routes/auth.routes';
 const app = express();
-var corsOptions = {
-    origin: "http://localhost:8081"
-};
 app.use(cookieSession({
     name: "aksu-session",
     secret: "aksuanil-secret-key",
@@ -16,7 +13,9 @@ app.use(cookieSession({
 }));
 app.use('/', auth);
 app.use('/', user);
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: '*'
+}));
 // parse requests of content-type - application/json
 app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
