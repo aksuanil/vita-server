@@ -23,9 +23,10 @@ const checkEmailValid = (req: any, res: any, next: any) => {
 
     let email = req.body.email;
 
-    if (!email)
+    if (!email) {
+        res.status(400).send({ message: "Failed! Email is not provided!" });
         return false;
-
+    }
     if (email.length > 254) {
         res.status(400).send({ message: "Failed! Email is too long!" });
         return false;
@@ -64,17 +65,20 @@ const verifyInputs = (req: any, res: any, next: any) => {
         return false;
     }
     if (!req.body.password) {
-        if(req.body.password.length < 8) {
-            res.status(400).send({ message: "Failed! Password can't be shorter than 8 characters!" });
-            return false;
-        }
         res.status(400).send({ message: "Failed! Password is not provided!" });
+        return false;
+    }
+    else if (req.body.password.length < 8) {
+        res.status(400).send({ message: "Failed! Password can't be shorter than 8 characters!" });
         return false;
     }
 
     const isEmailValid = checkEmailValid(req, res, next);
     if (isEmailValid) {
         checkDuplicateEmail(req, res, next);
+    }
+    else {
+        return false;
     }
 }
 

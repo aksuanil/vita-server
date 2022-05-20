@@ -1,6 +1,8 @@
 import {db} from '../models'
 import {config} from '../config/auth.config'
 import jwt from 'jsonwebtoken'
+import bodyParser from 'body-parser';
+var jsonParser = bodyParser.json();
 
 const User = db.user;
 // const Role = db.role;

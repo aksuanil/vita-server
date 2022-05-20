@@ -7,8 +7,8 @@ import user from './app/routes/user.routes';
 import auth from './app/routes/auth.routes';
 const app = express();
 app.use(cookieSession({
-    name: "aksu-session",
-    secret: "aksuanil-secret-key",
+    name: "bezkoder-session",
+    secret: "COOKIE_SECRET",
     httpOnly: true
 }));
 app.use('/', auth);

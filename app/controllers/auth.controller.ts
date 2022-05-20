@@ -58,6 +58,7 @@ const signin = (req: any, res: any) => {
             var token = jwt.sign({ id: user.id }, config.secret, {
                 expiresIn: 86400, // 24 hours
             });
+            console.log(req.session)
             req.session.token = token;
             res.status(200).send({
                 id: user._id,

@@ -6,6 +6,7 @@ var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 const authRouter = express.Router();
 import cors from 'cors';
+//TODO :: Calling cors both in here and server?
 authRouter.use(cors({
     origin: '*'
 }));

@@ -10,8 +10,8 @@ const app = express();
 
 app.use(
   cookieSession({
-    name: "aksu-session",
-    secret: "aksuanil-secret-key", // should use as secret environment variable
+    name: "bezkoder-session",
+    secret: "COOKIE_SECRET", // should use as secret environment variable
     httpOnly: true
   })
 );

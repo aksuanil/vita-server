@@ -51,6 +51,8 @@ const signin = (req, res) => {
             expiresIn: 86400, // 24 hours
         });
         req.session.token = token;
+        console.log(req.session);
+
         res.status(200).send({
             id: user._id,
             name: user.name,
