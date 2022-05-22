@@ -9,7 +9,7 @@ const User = db.user;
 const signup = (req: any, res: any) => {
     const user = new User({
         name: req.body.name,
-        lastname: req.body.lastname,        
+        lastname: req.body.lastname,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
     });
@@ -27,7 +27,7 @@ const signup = (req: any, res: any) => {
 };
 
 const signin = (req: any, res: any) => {
-    
+
     interface User {
         _id: any,
         id: any,
@@ -36,7 +36,7 @@ const signin = (req: any, res: any) => {
         email: string,
         password: string
     }
-    
+
     User.findOne({
         email: req.body.email,
     })
@@ -58,8 +58,9 @@ const signin = (req: any, res: any) => {
             var token = jwt.sign({ id: user.id }, config.secret, {
                 expiresIn: 86400, // 24 hours
             });
-            console.log(req.session)
             req.session.token = token;
+            req.session.isLogin = true;
+            console.log(req.session)
             res.status(200).send({
                 id: user._id,
                 name: user.name,
@@ -78,4 +79,23 @@ const signout = async (req: any, res: any) => {
     }
 };
 
-export { signup, signin, signout };
+const isLogin = async (req: any, res: any) => {
+    try {
+        let token = req.session.token;
+        jwt.verify(token, config.secret, (err: any, decoded: any) => {
+            if (err) {
+                return res.status(401).send({ message: "Unauthorized!" });
+            }
+            else {
+                return res.status(200).send({ message: "Success" });
+            }
+            // req.userId = decoded.id;
+        });
+
+    } catch (err) {
+        return res.status(500).send({ message: err });
+        // this.next(err);
+    }
+};
+
+export { signup, signin, signout, isLogin };

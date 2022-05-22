@@ -14,7 +14,8 @@ app.use(cookieSession({
 app.use('/', auth);
 app.use('/', user);
 app.use(cors({
-    origin: '*'
+    origin: 'http://localhost:3000',
+    credentials: true,
 }));
 // parse requests of content-type - application/json
 app.use(express.json());

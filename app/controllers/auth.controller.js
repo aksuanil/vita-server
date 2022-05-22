@@ -51,8 +51,8 @@ const signin = (req, res) => {
             expiresIn: 86400, // 24 hours
         });
         req.session.token = token;
+        req.session.isLogin = true;
         console.log(req.session);
-
         res.status(200).send({
             id: user._id,
             name: user.name,
@@ -71,4 +71,22 @@ const signout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // this.next(err);
     }
 });
-export { signup, signin, signout };
+const isLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let token = req.session.token;
+        jwt.verify(token, config.secret, (err, decoded) => {
+            if (err) {
+                return res.status(401).send({ message: "Unauthorized!" });
+            }
+            else {
+                return res.status(200).send({ message: "Success" });
+            }
+            // req.userId = decoded.id;
+        });
+    }
+    catch (err) {
+        return res.status(500).send({ message: err });
+        // this.next(err);
+    }
+});
+export { signup, signin, signout, isLogin };
