@@ -5,6 +5,7 @@ import { dbConfig } from './app/config/db.config';
 import { db } from './app/models';
 import user from './app/routes/user.routes';
 import auth from './app/routes/auth.routes';
+import food from './app/routes/food.routes';
 const app = express();
 app.use(cookieSession({
     name: "bezkoder-session",
@@ -12,6 +13,7 @@ app.use(cookieSession({
     httpOnly: true
 }));
 app.use('/', auth);
+app.use('/', food);
 app.use('/', user);
 app.use(cors({
     origin: 'http://localhost:3000',

@@ -1,12 +1,13 @@
 import mongoose from 'mongoose'
 import {User} from './user.model';
-import {Role} from './role.model';
+import {Food} from './food.model';
 
 mongoose.Promise = global.Promise;
 
 interface db {
     mongoose: any,
     user: any,
+    food: any,
     // role: any,
     // ROLES: any
 }
@@ -14,12 +15,13 @@ interface db {
 const db : db = {
     mongoose,
     user : null,
+    food : null,
     // role : null,
     // ROLES : null,
 };
 
 db.mongoose = mongoose;
 db.user = User;
-// db.role = Role;
+db.food = Food;
 
 export {db};
