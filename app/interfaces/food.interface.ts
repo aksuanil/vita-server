@@ -1,4 +1,4 @@
-export interface IFood {
+export default interface IFood {
     foodName: String,
     foodNameTurkish: String,
     nutrients: {

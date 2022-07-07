@@ -1,3 +1,3 @@
-import { IFood } from '../interfaces/food.interface';
+import IFood from './food.interface'
 
 export { IFood }
