@@ -3,10 +3,10 @@ import { db } from '../models'
 
 const Food = db.food;
 
-const getFoodDataByName = (req: any, res: any) => {
+const getFoodDataByName = async (req: any, res: any) => {
     try {
-        getUsdaDataByName(req.body.usdaSearch);
-        res.status(200).send("Public Content.");
+        const foodResponse = await getUsdaDataByName(req.query.usdaSearch);
+        res.status(200).send(foodResponse);
     } catch (error) {
         res.status(400).send("An error occured when getting data from USDA." + error);
     }

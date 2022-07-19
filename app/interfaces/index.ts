@@ -1,3 +1,4 @@
 import IFood from './food.interface'
+import Food from './food.interface'
 
-export { IFood }
+export { IFood, Food }

@@ -1,14 +1,162 @@
 // import translate from 'translate-google';
-import { IFood } from '../interfaces'
+import { IFood, Food } from '../interfaces'
+import fetch from 'node-fetch'
 
 async function getUsdaDataByName(searchInput: string) {
-    let foodArray = [];
+    let foodArray: any = [];
 
     const response = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=TRhDyoQ0vVrhRDZcaTMNUqWW8m684m0M5mt2hf7c&query=${searchInput}&dataType=Survey%20%28FNDDS%29`)
-    const result = await response.json();
-    return Promise.all(result.foods.slice(0, 10).map(async (item: any) => {
+    const result: any = await response.json();
+    Promise.all(result.foods.slice(0, 10).map(async (item: any) => {
 
-        const food = {} as IFood;
+        const food: IFood = {
+            foodName: '',
+            foodNameTurkish: '',
+            nutrients: {
+                protein: {
+                    value: 0,
+                    unitName: ''
+                },
+                fat: {
+                    value: 0,
+                    unitName: ''
+                },
+                carbohydrates: {
+                    value: 0,
+                    unitName: ''
+                },
+                energy: {
+                    value: 0,
+                    unitName: ''
+                }
+            },
+            vitamins: {
+                vitaminA: {
+                    value: 0,
+                    unitName: ''
+                },
+                vitaminB1: {
+                    value: 0,
+                    unitName: ''
+                },
+                vitaminB2: {
+                    value: 0,
+                    unitName: ''
+                },
+                vitaminB3: {
+                    value: 0,
+                    unitName: ''
+                },
+                vitaminB6: {
+                    value: 0,
+                    unitName: ''
+                },
+                vitaminB12: {
+                    value: 0,
+                    unitName: ''
+                },
+                vitaminC: {
+                    value: 0,
+                    unitName: ''
+                },
+                vitaminD: {
+                    value: 0,
+                    unitName: ''
+                },
+                vitaminE: {
+                    value: 0,
+                    unitName: ''
+                },
+                vitaminK: {
+                    value: 0,
+                    unitName: ''
+                }
+            },
+            minerals: {
+                calcium: {
+                    value: 0,
+                    unitName: ''
+                },
+                iron: {
+                    value: 0,
+                    unitName: ''
+                },
+                magnesium: {
+                    value: 0,
+                    unitName: ''
+                },
+                phosphorus: {
+                    value: 0,
+                    unitName: ''
+                },
+                potassium: {
+                    value: 0,
+                    unitName: ''
+                },
+                sodium: {
+                    value: 0,
+                    unitName: ''
+                },
+                zinc: {
+                    value: 0,
+                    unitName: ''
+                },
+                copper: {
+                    value: 0,
+                    unitName: ''
+                },
+                selenium: {
+                    value: 0,
+                    unitName: ''
+                }
+            },
+            misc: {
+                water: {
+                    value: 0,
+                    unitName: ''
+                },
+                sugar: {
+                    value: 0,
+                    unitName: ''
+                },
+                caffeine: {
+                    value: 0,
+                    unitName: ''
+                },
+                alcohol: {
+                    value: 0,
+                    unitName: ''
+                },
+                caroteneAlpha: {
+                    value: 0,
+                    unitName: ''
+                },
+                caroteneBeta: {
+                    value: 0,
+                    unitName: ''
+                },
+                folicAcid: {
+                    value: 0,
+                    unitName: ''
+                },
+                cholesterol: {
+                    value: 0,
+                    unitName: ''
+                },
+                choline: {
+                    value: 0,
+                    unitName: ''
+                },
+                lycopene: {
+                    value: 0,
+                    unitName: ''
+                }
+            },
+            foodMesaures: {
+                measure: '',
+                gramWeight: 0
+            }
+        };
 
         food.foodName = item.description
         // food.foodNameTurkish = await translate(food.foodName, { to: 'tr' });
@@ -87,7 +235,8 @@ async function getUsdaDataByName(searchInput: string) {
             // measureArr.push({ measure: measure, gramWeight: gramWeight });
         });
         foodArray.push(food);
-    }))
+    }));
+    return foodArray;
 }
 
 export { getUsdaDataByName };

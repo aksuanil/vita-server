@@ -10,15 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { getUsdaDataByName } from '../middlewares';
 import { db } from '../models';
 const Food = db.food;
-const getFoodDataByName = (req, res) => {
+const getFoodDataByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        getUsdaDataByName(req.body.usdaSearch);
-        res.status(200).send("Public Content.");
+        const foodResponse = yield getUsdaDataByName(req.query.usdaSearch);
+        res.status(200).send(foodResponse);
     }
     catch (error) {
         res.status(400).send("An error occured when getting data from USDA." + error);
     }
-};
+});
 const addFoodToDb = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const search = yield req.body.postFood;
